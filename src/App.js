@@ -31,11 +31,10 @@ class App extends Component {
     this.onDismiss = this.onDismiss.bind(this);
   }
 
-  onDismiss() {
-    let id = 0
-    const isNotID = item => item.objecID !== id;
+  onDismiss(id) {
+    const isNotID = item => item.objectID !== id;
     const updatedList = this.state.list.filter(isNotID);
-    this.setState({list: []});
+    this.setState({list: updatedList});
   }
 
   render() {
@@ -54,7 +53,7 @@ class App extends Component {
           })
         }
         <button
-          onClick={this.onDismiss}
+          onClick={() => {this.onDismiss(0)}}
           type="button"
         >
           Dismiss
