@@ -31,11 +31,17 @@ class App extends Component {
     this.onDismiss = this.onDismiss.bind(this);
   }
 
+  onDismiss(id) {
+    const isNotID = item => item.objectID !== id;
+    const updatedList = this.state.list.filter(isNotID);
+    this.setState({list: updatedList});
+  }
+
   render() {
     return (
       <div className="App">
         {
-          this.state.list.map(function(item) {
+          this.state.list.map( item =>  {
             return <div key={item.objectID}>
                      <span><a href={item.url}>{item.title}</a></span>
                      <span>{item.author}</span>
