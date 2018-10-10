@@ -29,6 +29,7 @@ class App extends Component {
     };
 
     this.onDismiss = this.onDismiss.bind(this);
+    this.onSearchChange = this.onSearchChange.bind(this);
   }
 
   onDismiss(id) {
@@ -37,11 +38,16 @@ class App extends Component {
     this.setState({list: updatedList});
   }
 
+  onSearchChange() {
+  }
+
   render() {
     return (
       <div className="App">
         <form>
-          <input type="text" />
+          <input type="text"
+                 onChange={this.onSearchChange}
+          />
         </form>
         {
           this.state.list.map( item =>  {
