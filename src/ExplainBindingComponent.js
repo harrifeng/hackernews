@@ -1,4 +1,10 @@
 class ExplainBindingsComponent extends Component {
+  constructor() {
+    super();
+
+    this.onClickMe = this.onClickMe.bind(this);
+  }
+
   onClickMe() {
     console.log(this)
   }
