@@ -26,6 +26,7 @@ class App extends Component {
 
     this.state = {
       list,
+      searchTerm: '',
     };
 
     this.onDismiss = this.onDismiss.bind(this);
@@ -38,7 +39,8 @@ class App extends Component {
     this.setState({list: updatedList});
   }
 
-  onSearchChange() {
+  onSearchChange(event) {
+    this.setState({searchTerm: event.target.value});
   }
 
   render() {
