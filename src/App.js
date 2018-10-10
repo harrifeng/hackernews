@@ -40,6 +40,9 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+        <form>
+          <input type="text" />
+        </form>
         {
           this.state.list.map( item =>  {
             return <div key={item.objectID}>
