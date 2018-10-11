@@ -20,6 +20,10 @@ const list = [
   },
 ];
 
+function callbackDemo(item) {
+  return item.title.toLowerCase().includes("redux");
+}
+
 class App extends Component {
   constructor(props) {
     super(props)
@@ -52,7 +56,7 @@ class App extends Component {
           />
         </form>
         {
-          this.state.list.map( item =>  {
+          this.state.list.filter(callbackDemo).map( item =>  {
             return <div key={item.objectID}>
                      <span><a href={item.url}>{item.title}</a></span>
                      <span>{item.author}</span>
