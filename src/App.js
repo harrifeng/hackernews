@@ -20,8 +20,10 @@ const list = [
   },
 ];
 
-function callbackDemo(item) {
-  return item.title.toLowerCase().includes("redux");
+function isSearched(searchTerm) {
+  return function (item) {
+    return item.title.toLowerCase().includes(searchTerm.toLowerCase());
+  }
 }
 
 class App extends Component {
@@ -56,7 +58,7 @@ class App extends Component {
           />
         </form>
         {
-          this.state.list.filter(callbackDemo).map( item =>  {
+          this.state.list.filter(isSearched(this.state.searchTerm)).map( item =>  {
             return <div key={item.objectID}>
                      <span><a href={item.url}>{item.title}</a></span>
                      <span>{item.author}</span>
