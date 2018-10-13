@@ -40,21 +40,32 @@ const Search = ( { value, onChange, children }) => {
 }
 
 const Table = ({ list, pattern, onDismiss }) => {
+  const largeColumn = {
+    width: '40%',
+  };
+
+  const midColumn = {
+    width: '30%',
+  };
+
+  const smallColumn = {
+    width: '10%',
+  };
   return (
     <div className="table">
       {
         list.filter(isSearched(pattern)).map( item =>  {
           return <div key={item.objectID} className="table-row">
-                   <span style={{ width: '40%' }}>
+                   <span style={largeColumn}>
                      <a href={item.url}>{item.title}</a>
                    </span>
-                   <span style={{ width: '30%' }}>
+                   <span style={midColumn}>
                      {item.author}
                    </span>
-                   <span style={{ width: '10%' }}>
+                   <span style={smallColumn}>
                      {item.num_comments}
                    </span>
-                   <span style={{ width: '10%' }}>
+                   <span style={smallColumn}>
                      {item.points}
                    </span>
               <span>
