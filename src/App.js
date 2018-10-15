@@ -131,7 +131,7 @@ class App extends Component {
     const isNotID = item => item.objectID !== id;
     const updatedList = this.state.result.hits.filter(isNotID);
     this.setState({
-      result: Object.assign({}, this.state.result, {hits: updatedList})
+      result: {...this.state.result, hits: updatedList}
     });
   }
 
