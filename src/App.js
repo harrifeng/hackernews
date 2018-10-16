@@ -27,19 +27,26 @@ function isSearched(searchTerm) {
 }
 
 // const { value, onChange, children } = props;
-const Search = ( { value, onChange, children }) => {
+const Search = ( {
+  value,
+  onChange,
+  onSubmit,
+  children
+}) => {
   return (
-    <form>
-      {children}
+    <form onSubmit={onSubmit}>
       <input type="text"
              value={value}
              onChange={onChange}
       />
+      <button type="submit">
+        {children}
+      </button>
     </form>
   );
 }
 
-const Table = ({ list, pattern, onDismiss }) => {
+const Table = ({ list, onDismiss }) => {
   const largeColumn = {
     width: '40%',
   };
@@ -54,7 +61,7 @@ const Table = ({ list, pattern, onDismiss }) => {
   return (
     <div className="table">
       {
-        list.filter(isSearched(pattern)).map( item =>  {
+        list.map( item =>  {
           return <div key={item.objectID} className="table-row">
                    <span style={largeColumn}>
                      <a href={item.url}>{item.title}</a>
@@ -110,6 +117,8 @@ class App extends Component {
     };
 
     this.setSearchTopStories = this.setSearchTopStories.bind(this);
+    this.fetchSearchTopStories = this.fetchSearchTopStories.bind(this);
+    this.onSearchSubmit = this.onSearchSubmit.bind(this);
     this.onDismiss = this.onDismiss.bind(this);
     this.onSearchChange = this.onSearchChange.bind(this);
   }
@@ -117,14 +126,24 @@ class App extends Component {
   setSearchTopStories(result) {
     this.setState({result})
   }
-  componentDidMount() {
-    const { searchTerm } = this.state;
-    const url = `${PATH_BASE}${PATH_SEARCH}?${PARAM_SEARCH}${DEFAULT_QUERY}`;
 
+  fetchSearchTopStories(searchTerm) {
+    const url = `${PATH_BASE}${PATH_SEARCH}?${PARAM_SEARCH}${searchTerm}`;
     fetch(url)
       .then(response => response.json())
       .then(result => this.setSearchTopStories(result))
       .catch(error => error);
+  }
+
+  componentDidMount() {
+    const { searchTerm } = this.state;
+    this.fetchSearchTopStories(searchTerm)
+  }
+
+  onSearchSubmit(event) {
+    const { searchTerm } = this.state;
+    this.fetchSearchTopStories(searchTerm)
+    event.preventDefault();
   }
 
   onDismiss(id) {
@@ -147,13 +166,13 @@ class App extends Component {
           <Search
             value={searchTerm}
             onChange={this.onSearchChange}
+            onSubmit={this.onSearchSubmit}
           >
             Search
           </Search>
           { result &&
            <Table
             list={result.hits}
-            pattern={searchTerm}
             onDismiss={this.onDismiss}
            />
           }
